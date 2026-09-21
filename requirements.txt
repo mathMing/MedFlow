@@ -1,0 +1,21 @@
+# 基础科学计算与视觉
+numpy>=1.22.0
+pyyaml>=6.0
+matplotlib>=3.5.0
+Pillow>=9.0.0
+
+# 深度学习 (建议使用 conda 或根据具体 CUDA 版本安装 torch)
+# torch>=2.0.0
+# torchvision>=0.15.0
+
+# 网络通信与飞书推送
+requests>=2.28.0
+
+# 可选：显卡状态获取 (无显卡时代码会自动降级使用系统检测)
+pynvml>=11.5.0
+
+# 可选：飞书官方长连接 SDK (用于手机免公网IP双向指令交互)
+# pip install lark-oapi
+
+# Web UI
+streamlit>=1.30.0

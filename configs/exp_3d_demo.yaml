@@ -1,0 +1,18 @@
+# 3D 医疗影像分割示例 (如 3D CT 肝脏、MRI 脑肿瘤)
+exp_name: "exp_3d_demo"
+spatial_dims: 3
+data_shape: [32, 64, 64] # [D, H, W]
+in_channels: 1
+out_channels: 1
+
+# 模型与训练
+model_name: "unet"
+base_filters: 16
+use_monai: false
+
+epochs: 5
+batch_size: 2
+lr: 0.001
+
+train_samples: 16
+val_samples: 4
