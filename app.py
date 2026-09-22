@@ -24,7 +24,7 @@ def get_config_files():
 # ================= 侧边栏导航 =================
 st.sidebar.title("🔬 MedVision Web")
 st.sidebar.markdown("轻量级医疗影像科研控制台")
-menu = st.sidebar.radio("功能导航", ["📖 快速引导", "⚙️ 实验配置与执行", "📊 实时战报看板"])
+menu = st.sidebar.radio("功能导航", ["📖 快速引导", "⚙️ 实验配置与执行", "📊 实时战报看板", "📚 科研知识库 (SOTA)"])
 
 # ================= 页面 1: 快速引导 =================
 if menu == "📖 快速引导":
@@ -136,3 +136,35 @@ elif menu == "📊 实时战报看板":
             display_image(latest_curve, "📈 训练收敛曲线", col2)
         else:
             col2.info("暂未发现生成的收敛曲线。")
+
+# ================= 页面 4: 科研知识库 =================
+elif menu == "📚 科研知识库 (SOTA)":
+    st.title("📚 科研知识库 (SOTA Leaderboard)")
+    kb_dir = PROJECT_ROOT / "knowledge_base"
+    
+    tab1, tab2 = st.tabs(["🏆 SOTA 排行榜", "📝 论文笔记管理"])
+    
+    with tab1:
+        leaderboard_path = kb_dir / "SOTA_Leaderboard.md"
+        if leaderboard_path.exists():
+            with open(leaderboard_path, "r", encoding="utf-8") as f:
+                st.markdown(f.read())
+        else:
+            st.warning("未找到 SOTA_Leaderboard.md")
+            
+    with tab2:
+        col1, col2 = st.columns([1, 2])
+        if kb_dir.exists():
+            md_files = [f.name for f in kb_dir.glob("*.md") if f.name != "SOTA_Leaderboard.md"]
+        else:
+            md_files = []
+            
+        with col1:
+            selected_md = st.selectbox("选择论文笔记", md_files)
+            
+        with col2:
+            if selected_md:
+                md_path = kb_dir / selected_md
+                with open(md_path, "r", encoding="utf-8") as f:
+                    content = f.read()
+                st.markdown(content)
